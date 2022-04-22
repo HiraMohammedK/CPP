@@ -1,93 +1,77 @@
-#include<iostream>
-#include<cmath>
+#include <iostream>
 using namespace std;
 
- int s,l,b;
- float r,ab,bc,ca,ra,h;
-                int area(int);
-		int area(int,int);
-		float area(float);
-		float area(float,float);
-		float area(float,float,float);
-
-int area(int s)
-{    cout<<"Enter side of a square:";
-     cin>>s;
-    cout <<"Area of square is: ";
-    return(s*s);
-}
-int area(int l,int b)
-{      cout<<"Enter length and breadth of rectangle:";
-        cin>>l>>b;
-     cout <<"Area of rectangle is: ";
-    return(l*b);
-}
-float area(float r)
+class complex
 {
-    cout<<"Enter radius of circle:";
-    cin>>r;
-    cout <<"Area of circle is: ";
-    return(3.14*r*r);
-}
-float area(float ra, float h)
+	float real,image;
+public:
+	complex(){}
+	complex(float a)
+	{
+	  real=image=a;
+	}
+	complex(float x,float y)
+	{
+	real=x;
+	image=y;
+	}
+	friend complex sum(complex,complex);
+	friend void display(complex);
+};
+
+complex sum(complex A,complex B)
 {
-    cout<<"Enter radius and height of cylinder: ";
-    cin >>ra >>h;
-    cout <<"Area of cylinder is: ";
-    return(2*(3.14)*ra*(ra+h));
+	complex result;
+	result.real=A.real+B.real;
+	result.image=A.image+B.image;
+	return result;
 }
-float area(float ab,float bc,float ca)
+
+void display(complex number)
 {
-    
-    cout<<"Enter sides of triangle:";
-    cin>>ab>>bc>>ca;
-    float p,x;
-    p=(ab+bc+ca)/2;
-    x = p*(p-ab)*(p-bc)*(p-ca);
-    cout <<"Area of triangle is: ";
-
-    return(sqrt(x));
-  
-
+	if (number.image<0) 
+	{
+		cout<<number.real<<" "<<number.image<<"i"<<endl;
+	} 
+	else 
+	{
+		cout<<number.real<<" + "<<number.image<<"i"<<endl;
+	}
 }
-int main()
-{    int option;
-     int ch,choice;
-       
-  cout<<"Do you want to continue? " <<endl;
-  cout<<"If yes press 1 if no press 0" << endl;
-  cin>>choice;
-	  if(choice==0)
-	   {
-	     return 0;
-	   }
-     do
-	{ cout <<"\n\n";
-	  cout<<"Select an option and enter corresponding number " <<endl;
-	  cout<<"1:Area of square" <<endl;
-	  cout <<"2:Area of rectangle" <<endl;
-	  cout <<"3:Area of circle" <<endl;
-	  cout<<"4:Area of cylinder" <<endl;
-          cout<<"5:Area of triangle" <<endl;
-	  cin >>ch;
-
-          switch(ch)
- 		{
-                  case 1: cout << area(s);break;
-	          case 2: cout << area( l,b);break;
-		  case 3: cout << area(r);break;
-		  case 4: cout << area(ra,h);break;
-	          case 5 :cout << area(ab,bc,ca);break;
-		} 
-          cout<<"\n";
-          cout<<"Do you want to continue ? " <<endl;
-          cout <<"Press 1 for yes and 0 for no";
-          cin >>option;
-         }
-         while(option);
-
-		return 0 ;
-       
-      
-       
+int main() 
+{
+	int option;
+	float num1,num2,num3;
+	cout<<"\tWELCOME\t"<<endl;
+	cout<<"\n";
+	do {
+		cout<<"Complex number 1"<<endl;
+		cout<<"Enter real part: ";
+		cin>>num1;
+		cout<<"Enter imaginary part: ";
+		cin>>num2;
+		complex A(num1,num2);
+		cout<<"\n";
+		cout<<"Complex number 1: ";
+		display(A);
+		cout<<"\n";
+		cout<<"Complex number 2"<<endl;
+		cout<<"Enter the same real and image part: ";
+		cin>>num3;
+		complex B(num3);
+		cout<<"\n";
+		cout<<"Complex number 2: ";
+		display(B);
+		cout<<"\n";
+		complex C;
+		C=sum(A,B);
+		cout<<"Sum: ";
+		display(C);
+		cout<<"\n";
+		cout<<"Do you want to continue ?"<<endl;
+		cout<<"If yes enter 1 if no enter 0"<<endl;
+		cout<<"Enter your choice: ";
+		cin>>option;
+	} while (option);
+	return 0;
 }
